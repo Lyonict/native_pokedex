@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, FlatList } from 'react-native';
 
 // Components
 import Card from './Components/Card';
@@ -11,7 +11,7 @@ export default function App() {
 
   // Functions
   const getPokemons = () => {
-    fetch("https://pokeapi.co/api/v2/pokemon/")
+    fetch("https://pokeapi.co/api/v2/pokemon/?limit=15&offset=0")
     .then((response) => response.json())
     .then((json) => {
       Promise.all(
@@ -39,26 +39,19 @@ export default function App() {
   }, [])
 
   return (
-    <SafeAreaView>
-      <ScrollView style={styles.container}>
-        <StatusBar style="auto" />
-        <View>
-          {/* {pokemonList &&
-            <Flatlist
+    <SafeAreaView style={{backgroundColor:"red"}}>
+      <StatusBar style="auto" />
+      <View style={styles.container}>
+        <Text style={styles.pokedexTitle}>Pokedex</Text>
+        {pokemonList &&
+          <FlatList
             data={pokemonList}
-            renderItem={({pokemon}) => {
-              <Card key={pokemon.name} pokemonData={pokemon}></Card>
-            }}
+            renderItem={(pokemon) => <Card pokemonData={pokemon.item}></Card>}
+            keyExtractor={pokemon => pokemon.id}
             numColumns={3}
-            />
-          } */}
-          <Text>Pokedex</Text>
-          {pokemonList &&
-            pokemonList.map(pokemon => {
-              return <Card key={pokemon.name} pokemonData={pokemon}></Card>
-            })}
-        </View>
-      </ScrollView>
+          />
+        }
+      </View>
     </SafeAreaView>
   );
 }
@@ -66,5 +59,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
+    borderTopWidth: 3,
+    borderBottomWidth: 3,
+    borderColor: "black"
   },
+  pokedexTitle: {
+    textAlign: "center",
+    fontSize: 40
+  }
 });

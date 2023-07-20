@@ -6,7 +6,7 @@ export default function Card({pokemonData}) {
   return (
     <View style={styles.pokemonCard}>
       <Image
-        style={{ width: 100, height: 100, borderWidth: 1, borderColor: "red" }}
+        style={styles.pokemonImage}
         source={{ uri: `${pokemonData.sprites.front_default}`
         }}
       ></Image>
@@ -19,6 +19,13 @@ const styles = StyleSheet.create({
   pokemonCard: {
     borderWidth: 2,
     borderColor: "black",
+    flex: 1,
+    margin: 7,
+    borderRadius: 5,
+  },
+  pokemonImage: {
+    width: "100%",
+    height: 100,
   },
   pokemonNumber: {
     textAlign: "center",
