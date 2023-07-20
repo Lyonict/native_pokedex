@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Button } from "react-native";
 
-export default function Card({pokemonData}) {
+export default function Card({pokemonData, navigation}) {
   const pokemonId = pokemonData.id.toString()
 
   return (
@@ -11,6 +11,7 @@ export default function Card({pokemonData}) {
         }}
       ></Image>
       <Text style={styles.pokemonNumber}>#{(("0000").slice(0, -pokemonId.length)) + pokemonId}</Text>
+      <Button title="Details" onPress={() => navigation.navigate('Pokemon', {...pokemonData})}></Button>
     </View>
   );
 }
